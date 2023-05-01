@@ -15,17 +15,18 @@ public class BudgetTests {
         Budget budget = new Budget();
         UUID ID = budget.CreateAccount("BankName");
 
-        assertFalse(budget.getAccounts().isEmpty());
-        assertNotNull(budget.getAccountByID(ID));
+        assertFalse("Should return false as it should not be empty", budget.getAccounts().isEmpty());
+        assertNotNull("Should not be null as it should be returning a account object", budget.getAccountByID(ID));
+        assertEquals("Account name should be equal to BankName", "BankName", budget.getAccountByID(ID).getName());
     }
-
+    @Test
     public void deleteAccount(){
         Budget budget = new Budget();
         UUID ID = budget.CreateAccount("BankName");
 
-        assertFalse(budget.getAccounts().isEmpty());
+        assertFalse("Should return false as it should not be empty", budget.getAccounts().isEmpty());
 
-        assertTrue(budget.deleteAccountByID(ID));
+        assertTrue("Should Return True after Deleting Account", budget.deleteAccountByID(ID));
         assertTrue(budget.getAccounts().isEmpty());
 
     }

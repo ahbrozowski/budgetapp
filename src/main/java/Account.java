@@ -13,6 +13,10 @@ public class Account {
     public UUID getID() {
         return ID;
     }
+
+    public String getName() {
+        return name;
+    }
     
     
 
