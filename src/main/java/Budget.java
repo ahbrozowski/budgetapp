@@ -10,15 +10,16 @@ public class Budget {
     }
 
     public UUID CreateAccount(String accountName) {
-        UUID uuid = UUID.randomUUID();
-        Account a = new Account(accountName, uuid);
+        Account a = new Account(accountName);
         accounts.add(a);
-        return uuid;
+        return a.getID();
     }
 
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
+
+
 
     public Account getAccountByID(UUID ID) {
         for(Account account:accounts){
@@ -29,7 +30,13 @@ public class Budget {
         return null;
     }
 
-    public boolean deleteAccountByID(UUID iD) {
+    public boolean deleteAccountByID(UUID ID) {
+        for(Account account:accounts){
+            if(account.getID().compareTo(ID) == 0){
+                accounts.remove(account);
+                return true;
+            }
+        }
         return false;
     }
 

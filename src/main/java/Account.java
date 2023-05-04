@@ -1,23 +1,21 @@
-import java.util.UUID;
+import java.util.ArrayList;
 
-public class Account {
+public class Account extends Container<Envelope>  {
 
-    String name;
-    UUID ID;
+    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
-    public Account(String name, UUID uuid) {
-        this.name = name;
-        this.ID = uuid;
+    public Account(String name) {
+        super(name);
+    }   
+
+
+    public Transaction getTransactionByID(){
+        for(Transaction t:transactions){
+            if(t.getID().compareTo(ID) == 0){
+                return t;
+            }
+        }
+        return null;
+
     }
-
-    public UUID getID() {
-        return ID;
-    }
-
-    public String getName() {
-        return name;
-    }
-    
-    
-
 }

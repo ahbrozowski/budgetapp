@@ -27,6 +27,7 @@ public class BudgetTests {
         assertFalse("Should return false as it should not be empty", budget.getAccounts().isEmpty());
 
         assertTrue("Should Return True after Deleting Account", budget.deleteAccountByID(ID));
+        assertFalse("Should Return false as there is no Account left", budget.deleteAccountByID(ID));
         assertTrue(budget.getAccounts().isEmpty());
 
     }
