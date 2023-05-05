@@ -12,22 +12,47 @@ public abstract class Container<E extends MoneyHolder> extends MoneyHolder {
     
     public E findByID(UUID inputedUUID) {
         for(E item:items){
-            if(item.getID().compareTo(inputedUUID) == 0){
+            if(item.getID().equals(inputedUUID)){
                 return item;
             }
         }
         return null;
 
     }
+
+    public E findByName(String name) {
+        String lowerName = name.toLowerCase();
+        for(E item:items){
+            if(item.getName().toLowerCase().equals(lowerName)){
+                return item;
+            }
+        }
+        return null;
+
+    }
+
     public boolean removeByID(UUID inputedUUID) {
         for(E item:items){
-            if(item.getID().compareTo(inputedUUID) == 0){
+            if(item.getID().equals(inputedUUID)){
                 items.remove(item);
                 return true;
             }
         }
         return false;
     }
+
+
+    public boolean removeByName(String name) {
+        String lowerName = name.toLowerCase();
+        for(E item:items){
+            if(item.getName().toLowerCase().equals(lowerName)){
+                items.remove(item);
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public double getValue(){
         double calculatedValue = 0;
@@ -47,6 +72,17 @@ public abstract class Container<E extends MoneyHolder> extends MoneyHolder {
         return items;
     }
 
+    @Override
+    public String toString() {
+
+        String output = "";
+
+        for (E item : items) {
+            output = output.concat(item.getName() + "\n");
+        }
+
+        return output;
+    }
 
 
 }

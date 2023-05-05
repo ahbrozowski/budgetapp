@@ -39,7 +39,7 @@ public class TransactionTests {
         assertEquals("should be equal to 100", 100, savings.findByID(createdForSavings.getID()).getValue(), 0);
         assertEquals("should be equal to 100", 200, food.findByID(createdForFood.getID()).getValue(), 0);
 
-        assertFalse("Should not be empty", t.getAll().isEmpty());
+        assertFalse("Should not be empty", t.getEntryIDs().isEmpty());
         
     }
 

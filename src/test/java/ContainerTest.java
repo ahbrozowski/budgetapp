@@ -52,7 +52,9 @@ public class ContainerTest {
         ally.addNew(savings);
 
         assertTrue("Removing item should return true" , savings.removeByID(a.getID()));
-        assertEquals("Value should change now that item is remove", 250, savings.getValue(), 0);
+        assertEquals("Value should change now that item is removed", 250, savings.getValue(), 0);
+        assertTrue("Removing item should return true" , savings.removeByName(b.getName()));
+        assertEquals("Value should change now that item is removed", 0, savings.getValue(), 0);
 
     }
 
