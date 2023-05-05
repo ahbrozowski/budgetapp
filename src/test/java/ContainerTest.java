@@ -11,7 +11,7 @@ import org.junit.Test;
 public class ContainerTest {
     
     Account ally = new Account("Ally");
-    Envelope savings = new Envelope("savings");
+    Envelope savings = new Envelope("savings", ally.getID());
 
     @Test
     public void createItem(){
