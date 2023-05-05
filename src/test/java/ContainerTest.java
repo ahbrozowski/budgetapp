@@ -25,8 +25,8 @@ public class ContainerTest {
     }
     @Test
     public void calculatedValue(){
-        Transaction t = new Transaction(100, "walmart shopping");
-        Transaction t2 = new Transaction(500, "Paycheck");
+        Transaction t = new Transaction(LocalDate.of(2023, Month.JUNE, 18), 100, "walmart shopping");
+        Transaction t2 = new Transaction(LocalDate.of(2023, Month.JUNE, 19), 500, "Paycheck");
         Entry a = new Entry(LocalDate.of(2023, Month.JUNE, 18), -23.57, "walmart shopping", t.getID() , savings.getID() );
         Entry b = new Entry(LocalDate.of(2023, Month.JUNE, 19), 250 , "Paycheck", t2.getID() , savings.getID());
 
