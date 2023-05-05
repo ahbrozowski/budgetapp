@@ -10,18 +10,18 @@ public abstract class Container<E extends MoneyHolder> extends MoneyHolder {
         items = new ArrayList<E>();
     }
     
-    public E findByID(UUID id) {
+    public E findByID(UUID inputedUUID) {
         for(E item:items){
-            if(item.getID().compareTo(ID) == 0){
+            if(item.getID().compareTo(inputedUUID) == 0){
                 return item;
             }
         }
         return null;
 
     }
-    public boolean removeByID(UUID id) {
+    public boolean removeByID(UUID inputedUUID) {
         for(E item:items){
-            if(item.getID().compareTo(ID) == 0){
+            if(item.getID().compareTo(inputedUUID) == 0){
                 items.remove(item);
                 return true;
             }
@@ -37,7 +37,7 @@ public abstract class Container<E extends MoneyHolder> extends MoneyHolder {
         return calculatedValue;
     } 
 
-    public  UUID addNew(E item){
+    public UUID addNew(E item){
         items.add(item);
         return item.getID();
     }

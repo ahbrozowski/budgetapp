@@ -1,8 +1,10 @@
-public class Transaction extends MoneyHolder {
+import java.time.LocalDate;
 
-    public Transaction(double value, String name) {
+public class Transaction extends MoneyHolder {
+    LocalDate date;
+    public Transaction(LocalDate date, double value, String name) {
         super(value, name);
-        //TODO Auto-generated constructor stub
+        this.date = date;
     }
     
 }

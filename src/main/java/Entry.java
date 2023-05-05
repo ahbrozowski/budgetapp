@@ -1,13 +1,13 @@
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Entry extends MoneyHolder{
     
-    Date date;
+    LocalDate date;
     UUID parentTransactionID;
     UUID envelopeID;
 
-    public Entry(Date date, double value, String name, UUID transaction, UUID envelope){
+    public Entry(LocalDate date, double value, String name, UUID transaction, UUID envelope){
         super(value, name);
         this.date = date;
         this.parentTransactionID = transaction;
