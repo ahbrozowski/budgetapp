@@ -1,6 +1,6 @@
 # budgetapp
 #have Java 17 installed
-#Type ./mvnv clean install into command line
-#then type java -jar target\BudgetApp.jar or java -jar target/BudgetApp.jar 
+#Type ./mvnv clean install on windows or chmod +x mvnv clean install 
+#then type java -jar target\BudgetApp.jar on windows or java -jar target/BudgetApp.jar 
 #depending on your OS
 
