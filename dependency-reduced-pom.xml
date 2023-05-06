@@ -5,6 +5,7 @@
   <artifactId>gs-maven</artifactId>
   <version>0.1.0</version>
   <build>
+    <finalName>BudgetApp</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
