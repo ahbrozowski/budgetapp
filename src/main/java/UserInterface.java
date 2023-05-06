@@ -349,7 +349,7 @@ public class UserInterface {
     private String getQuery(){
         System.out.println();
         String response = scanner.nextLine();
-        if(response.charAt(0) == '!'){
+        if(response != "" && response.charAt(0) == '!'){
             SelectControls(response);
             return null;
         }
