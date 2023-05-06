@@ -1,15 +1,21 @@
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class Entry extends MoneyHolder{
     
-    LocalDate date;
+    String date;
     UUID parentTransactionID;
     UUID envelopeID;
 
-    public Entry(LocalDate date, double value, String name, UUID transaction, UUID envelope){
+    public Entry(String date, double value, String name, UUID transaction, UUID envelope){
         super(value, name);
-        this.date = date;
+        this.date = date.toString();
+        this.parentTransactionID = transaction;
+        this.envelopeID = envelope;
+
+    }
+    public Entry(String date, double value, String name, UUID ID, UUID transaction, UUID envelope){
+        super(value, name, ID);
+        this.date = date.toString();
         this.parentTransactionID = transaction;
         this.envelopeID = envelope;
 
@@ -26,5 +32,9 @@ public class Entry extends MoneyHolder{
         this.envelopeID = envelopeID;
     }
 
+    @Override
+    public String toString() {
+        return name +": " + value + ", " + date.toString(); 
+    }
 
 }

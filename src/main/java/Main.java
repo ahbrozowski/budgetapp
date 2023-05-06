@@ -1,20 +1,20 @@
+import java.io.IOException;
+
 public class Main {
     UserInterface userInterface;
     
     public Main(){
-        Budget budget = new Budget("Andrews budget");
-        Account ally = new Account("Ally");
-        Account costal = new Account("Costal");
-        costal.addNew(new Envelope("savings", ally.getID()));
-        costal.addNew(new Envelope("Spending", ally.getID()));
-        ally.addNew(new Envelope("house fund", costal.getID()));
+        Budget budget = new Budget("Budget");
 
-        budget.addNew(costal);
-        budget.addNew(ally);
-
+        try {
+            budget = FileSaver.loadBudget();
+            userInterface = new UserInterface(budget);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-        userInterface = new UserInterface(budget);
+
     }
 
    
@@ -22,6 +22,7 @@ public class Main {
         
         Main main = new Main();
         System.out.println("\n \n \n \n \n \n \n \n");
+
         main.userInterface.Draw();
     }
 

@@ -12,13 +12,11 @@ public class TransactionTests {
 
     @Test
     public void testCreatingEntries(){
-        Account a = new Account("ally");
-        Envelope savings = new Envelope("Savings", a.getID());
-        Envelope food = new Envelope("food", a.getID());
-        Transaction t = new Transaction(LocalDate.of(2020, 5, 7), 300, "Paycheck");
+       Container<Entry> savings = new Container<Entry>("Savings");
+       Container<Entry> food = new Container<Entry>("food");
+        Transaction t = new Transaction(LocalDate.of(2020, 5, 7).toString(), 300, "Paycheck");
 
-        ArrayList<Envelope> envelopes = new ArrayList<Envelope>();
-        
+        ArrayList<Container<Entry>> envelopes = new ArrayList<Container<Entry>>();
         envelopes.add(savings);
         envelopes.add(food);
         double[] values = {100, 200};
@@ -45,13 +43,11 @@ public class TransactionTests {
 
     @Test
     public void testThatErrorIsThrown(){
-        Account a = new Account("ally");
-        Envelope savings = new Envelope("Savings", a.getID());
-        Envelope food = new Envelope("food", a.getID());
-        Transaction t = new Transaction(LocalDate.of(2020, 5, 7), 300, "Paycheck");
+       Container<Entry> savings = new Container<Entry>("Savings");
+       Container<Entry> food = new Container<Entry>("food");
+        Transaction t = new Transaction(LocalDate.of(2020, 5, 7).toString(), 300, "Paycheck");
 
-        ArrayList<Envelope> envelopes = new ArrayList<Envelope>();
-        
+        ArrayList<Container<Entry>> envelopes = new ArrayList<Container<Entry>>();
         envelopes.add(savings);
         envelopes.add(food);
         double[] values = {100, 100};

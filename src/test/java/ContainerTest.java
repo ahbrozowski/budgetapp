@@ -1,8 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -11,7 +9,7 @@ import org.junit.Test;
 public class ContainerTest {
     
     Account ally = new Account("Ally");
-    Envelope savings = new Envelope("savings", ally.getID());
+   Container<Entry> savings = new Container<Entry>("savings");
 
     @Test
     public void createItem(){
@@ -25,10 +23,10 @@ public class ContainerTest {
     }
     @Test
     public void calculatedValue(){
-        Transaction t = new Transaction(LocalDate.of(2023, Month.JUNE, 18), 100, "walmart shopping");
-        Transaction t2 = new Transaction(LocalDate.of(2023, Month.JUNE, 19), 500, "Paycheck");
-        Entry a = new Entry(LocalDate.of(2023, Month.JUNE, 18), -23.57, "walmart shopping", t.getID() , savings.getID() );
-        Entry b = new Entry(LocalDate.of(2023, Month.JUNE, 19), 250 , "Paycheck", t2.getID() , savings.getID());
+        Transaction t = new Transaction("2023-01-10", 100, "walmart shopping");
+        Transaction t2 = new Transaction("2023-01-10", 500, "Paycheck");
+        Entry a = new Entry("2023-01-10", -23.57, "walmart shopping", t.getID() , savings.getID() );
+        Entry b = new Entry("2023-01-10", 250 , "Paycheck", t2.getID() , savings.getID());
 
         savings.addNew(a);
         savings.addNew(b);
@@ -41,10 +39,10 @@ public class ContainerTest {
 
     @Test
     public void deleteItems(){
-        Transaction t = new Transaction(LocalDate.of(2023, Month.JUNE, 18), 100, "walmart shopping");
-        Transaction t2 = new Transaction(LocalDate.of(2023, Month.JUNE, 19), 500, "Paycheck");
-        Entry a = new Entry(LocalDate.of(2023, Month.JUNE, 18), -23.57, "walmart shopping", t2.getID() , savings.getID() );
-        Entry b = new Entry(LocalDate.of(2023, Month.JUNE, 19), 250 , "Paycheck", t.getID() , savings.getID());
+        Transaction t = new Transaction("2023-01-10", 100, "walmart shopping");
+        Transaction t2 = new Transaction("2023-01-10", 500, "Paycheck");
+        Entry a = new Entry("2023-01-10", -23.57, "walmart shopping", t2.getID() , savings.getID() );
+        Entry b = new Entry("2023-01-10", 250 , "Paycheck", t.getID() , savings.getID());
 
         savings.addNew(a);
         savings.addNew(b);

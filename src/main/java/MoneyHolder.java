@@ -1,6 +1,6 @@
 import java.util.UUID;
 
-public abstract class MoneyHolder implements Comparable<MoneyHolder> {
+public class MoneyHolder implements Comparable<MoneyHolder> {
     double value;
     UUID ID;
     String name;
@@ -14,13 +14,19 @@ public abstract class MoneyHolder implements Comparable<MoneyHolder> {
     public MoneyHolder(String name, UUID id){
         this.name = name;
         value = 0;
-        this.ID = UUID.randomUUID();
+        this.ID = id;
     }
 
     public MoneyHolder(double value, String name){
         this.name = name;
         this.value = value;
         this.ID = UUID.randomUUID();
+    }
+
+    public MoneyHolder(double value, String name, UUID ID){
+        this.name = name;
+        this.value = value;
+        this.ID = ID;
     }
 
 
@@ -52,4 +58,5 @@ public abstract class MoneyHolder implements Comparable<MoneyHolder> {
         }
         return 0;
     }
+
 }

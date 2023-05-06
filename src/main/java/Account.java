@@ -1,12 +1,18 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class Account extends Container<Envelope>  {
+public class Account extends Container<Container<Entry>>  {
 
     ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
     public Account(String name) {
         super(name);
     }   
+
+    public Account(String name, UUID id) {
+        super(name, id);
+    } 
+    
 
 
     public Transaction getTransactionByID(){
@@ -17,5 +23,10 @@ public class Account extends Container<Envelope>  {
         }
         return null;
 
+    }
+
+    public UUID addTransaction(Transaction transaction){
+        transactions.add(transaction);
+        return transaction.getID();
     }
 }

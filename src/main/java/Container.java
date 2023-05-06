@@ -1,12 +1,16 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
-public abstract class Container<E extends MoneyHolder> extends MoneyHolder {
+public class Container<E extends MoneyHolder> extends MoneyHolder {
 
     ArrayList<E> items;
 
     public Container(String name) {
         super(name);
+        items = new ArrayList<E>();
+    }
+    public Container(String name, UUID id) {
+        super(name, id);
         items = new ArrayList<E>();
     }
     
@@ -83,6 +87,7 @@ public abstract class Container<E extends MoneyHolder> extends MoneyHolder {
 
         return output;
     }
+
 
 
 }
