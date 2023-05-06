@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-import javax.management.Query;
 
 
 public class UserInterface {
@@ -349,7 +348,7 @@ public class UserInterface {
     private String getQuery(){
         System.out.println();
         String response = scanner.nextLine();
-        if(response != "" && response.charAt(0) == '!'){
+        if(!response.isEmpty() && response.charAt(0) == '!'){
             SelectControls(response);
             return null;
         }
