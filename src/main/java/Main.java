@@ -1,17 +1,19 @@
 import java.io.IOException;
 
 public class Main {
+
     UserInterface userInterface;
-    
     public Main(){
-        Budget budget = new Budget("Budget");
+        Budget budget;
+
 
         try {
             budget = FileSaver.loadBudget();
-            userInterface = new UserInterface(budget);
         } catch (IOException e) {
-            e.printStackTrace();
+            budget = new Budget("Budget");
         }
+
+        userInterface = new UserInterface(budget);
 
 
 

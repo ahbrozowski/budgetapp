@@ -16,7 +16,7 @@ public class FileSaver {
 
         String fileString = gSon.toJson(budget);
         System.out.print("Successfully Saved!!");
-        FileWriter fileWriter = new FileWriter("src/main/resources/Budget.json");
+        FileWriter fileWriter = new FileWriter("Budget.json");
         fileWriter.write(fileString);
         
 
@@ -29,7 +29,7 @@ public class FileSaver {
     static public Budget loadBudget() throws IOException{
         Gson gSon = new Gson();
 
-        Path filePath = Path.of("src/main/resources/Budget.json");
+        Path filePath = Path.of("Budget.json");
        
         String content = Files.readString(filePath);
         
