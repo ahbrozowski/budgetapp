@@ -24,7 +24,6 @@ public class UserInterface {
         switch(command){
             case "!change":
                 changeHandler();
-                System.out.println("changed");
                 break;
             case "!create": 
                 createHandler();
@@ -90,6 +89,9 @@ public class UserInterface {
             case "envelope":
                 currentEntry = null;
                 if(currentAccount == null){
+                    if(budget.getAll().size() == 1){
+                        currentAccount = budget.getAll().get(0);
+                    }
                     chooseAccount();
                 }
                 deleteEnvelope();
@@ -116,6 +118,9 @@ public class UserInterface {
                 break;
             case "envelope":
                 if(currentAccount == null){
+                    if(budget.getAll().size() == 1){
+                        currentAccount = budget.getAll().get(0);
+                    }
                     chooseAccount();
                 }
                 chooseEnvelope();
