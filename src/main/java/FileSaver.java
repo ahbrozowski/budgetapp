@@ -15,7 +15,7 @@ public class FileSaver {
 
 
         String fileString = gSon.toJson(budget);
-        System.out.print(fileString);
+        System.out.print("Successfully Saved!!");
         FileWriter fileWriter = new FileWriter("src/main/resources/Budget.json");
         fileWriter.write(fileString);
         

@@ -14,11 +14,11 @@ public class UserInterface {
     Entry currentEntry;
     boolean run = true;
 
-    public UserInterface(Budget budget){
+    UserInterface(Budget budget){
         this.budget = budget;
     }
 
-    public void chooseAccount(){
+    private void chooseAccount(){
         System.out.print("Pick the Account \n");
         System.out.print(budget);
         
@@ -43,7 +43,8 @@ public class UserInterface {
 
     }
 
-    public void chooseEnvelope(){
+
+    private void chooseEnvelope(){
         System.out.print("Pick the envelope \n");
         System.out.print(currentAccount);
         
@@ -66,7 +67,7 @@ public class UserInterface {
 
     }
 
-    public void chooseEntry(){
+    private void chooseEntry(){
         System.out.print("Pick the Entry \n");
         System.out.print(currentEnvelope);
         boolean exists = false;
@@ -88,14 +89,15 @@ public class UserInterface {
     public void Draw(){
 
         System.out.print("Hello! Welcome to my budgeting app!");
-        System.out.print("\nWhen using this app if you want to run a command use !");
+        System.out.print("\nUse !help to get a list of possible commands");
+
         while(run){
             getQuery();
         }
     }
 
 
-    public void SelectControls(String sentCommand){
+    private void SelectControls(String sentCommand){
 
         String command = sentCommand.toLowerCase();
         switch(command){
@@ -105,13 +107,59 @@ public class UserInterface {
             case "!create": 
                 createHandler();
                 break;
+            case "!deleate": 
+                deleateHandler();
+                break;
             case "!quit":
                 saveAndClose();
                 break;
             case "!print":
                 printHander();
                 break;
+            case "!help":
+                printControls();
+                break;
         }
+    }
+
+    private void deleateHandler() {
+        System.out.println("What would you like to Deleate? an Account, Envelope or Transaction?");
+        String response = getQuery();
+        if(response == null){return;}
+
+        switch(response.toLowerCase()){
+            case "account":
+                currentEntry = null;
+                currentEnvelope = null;
+                createAccount();
+                break;
+            case "envelope":
+                currentEntry = null;
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                createEnvelope();
+                break;
+            case "transaction":
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                createTransaction();
+                break;
+        }          
+    }
+
+    private void printControls() {
+        System.out.println("The avalible controls are \n" + 
+        "  !change, lets you choose what Account, envelope or entry you are currently on\n"+
+        "  !create, allows you to create an account, envelope, or transaction\n"+
+        "  !deleate, allows you to deleate an account, envelope, or transaction\n"+
+        "  !print, prints the whole budget\n"+
+        "  !quit, saves and quits the application\n"+
+        "  !help, displays the avalible commands");
+
+        
+        
     }
 
     private void printHander() {
@@ -129,7 +177,7 @@ public class UserInterface {
 
     }
 
-    public void createHandler() {
+    private void createHandler() {
         System.out.println("What would you like to Create? an Account, Envelope or Transaction?");
         String response = getQuery();
         if(response == null){return;}
@@ -156,7 +204,7 @@ public class UserInterface {
         }           
     }
 
-    public void changeHandler() {
+    private void changeHandler() {
 
         System.out.println("What would you like to change? Your Account, Envelope, or Entry?");
         String response = getQuery();
@@ -189,7 +237,7 @@ public class UserInterface {
         }           
     }
 
-    public void saveAndClose() {
+    private void saveAndClose() {
         try {
             FileSaver.saveBudget(budget);
             run = false;
@@ -202,7 +250,7 @@ public class UserInterface {
         
     }
 
-    public void createTransaction() {
+    private void createTransaction() {
         System.out.print("\nWhat do you want to name the transaction");
         String name = getQuery();
         if(name == null){return;}
@@ -217,7 +265,7 @@ public class UserInterface {
         breakInEntries(transactionID, transaction);
     }
 
-    public void createAccount(){
+    private void createAccount(){
         System.out.print("\nWhat do you want to name the Account");
         String name = getQuery();
         if(name == null){return;}
@@ -226,7 +274,7 @@ public class UserInterface {
         budget.addNew(account);
     }
 
-    public void createEnvelope(){
+    private void createEnvelope(){
         System.out.print("\nWhat do you want to name the Envelope");
         String name = getQuery();
         if(name == null){return;}
@@ -236,7 +284,7 @@ public class UserInterface {
         currentEnvelope = envelope;
     }
 
-    public void breakInEntries(UUID transactionID, Transaction transaction) {
+    private void breakInEntries(UUID transactionID, Transaction transaction) {
         
         System.out.println("\nHow many entries do you want to make?");
         int num = getIntQuery();    
@@ -266,7 +314,7 @@ public class UserInterface {
         
     }
 
-    public String getQuery(){
+    private String getQuery(){
         System.out.println();
         String response = scanner.nextLine();
         if(response.charAt(0) == '!'){
@@ -276,7 +324,7 @@ public class UserInterface {
         return response;
     }
 
-    public Double getDoubleQuery(){
+    private Double getDoubleQuery(){
         boolean isDouble = false;
         double value = 0;
         while(!isDouble) {
@@ -292,7 +340,7 @@ public class UserInterface {
         return value;
     }
 
-    public Integer getIntQuery(){
+    private Integer getIntQuery(){
         boolean isInt = false;
         Integer value = 0;
         while(!isInt) {
@@ -308,7 +356,7 @@ public class UserInterface {
         return value;
     }
 
-    public LocalDate getDateQuery(){
+    private LocalDate getDateQuery(){
         boolean isDate = false;
         LocalDate date = LocalDate.now();
         System.out.print("\nPlease enter a date in the formate YEAR-MM-DD");
