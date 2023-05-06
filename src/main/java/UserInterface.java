@@ -24,12 +24,15 @@ public class UserInterface {
         switch(command){
             case "!change":
                 changeHandler();
+                System.out.println("changed");
                 break;
             case "!create": 
                 createHandler();
+                printHander();
                 break;
             case "!delete": 
                 deleteHandler();
+                printHander();
                 break;
             case "!quit":
                 saveAndClose();
@@ -44,7 +47,7 @@ public class UserInterface {
     }
 
     private void createHandler() {
-        System.out.println("What would you like to Create? an Account, Envelope or Transaction?");
+        System.out.print("\nWhat would you like to Create? an Account, Envelope or Transaction?");
         String response = getQuery();
         if(response == null){return;}
 
@@ -57,6 +60,9 @@ public class UserInterface {
             case "envelope":
                 currentEntry = null;
                 if(currentAccount == null){
+                    if(budget.getAll().size() == 1){
+                        currentAccount = budget.getAll().get(0);
+                    }
                     chooseAccount();
                 }
                 createEnvelope();
@@ -71,7 +77,7 @@ public class UserInterface {
     }
 
     private void deleteHandler() {
-        System.out.println("What would you like to delete? an Account, Envelope or Transaction?");
+        System.out.print("\nWhat would you like to delete? an Account, Envelope or Transaction?");
         String response = getQuery();
         if(response == null){return;}
 
@@ -99,7 +105,7 @@ public class UserInterface {
 
     private void changeHandler() {
 
-        System.out.println("What would you like to change? Your Account, Envelope, or Entry?");
+        System.out.print("What would you like to change? Your Account, Envelope, or Entry?");
         String response = getQuery();
         if(response == null){
             return;
@@ -129,7 +135,7 @@ public class UserInterface {
     private void chooseAccount(){
         currentEnvelope = null;
         currentEntry = null;
-        System.out.print("Pick the Account \n");
+        System.out.print("Pick the Account\n");
         System.out.print(budget);
         
         boolean exists = false;
@@ -156,7 +162,7 @@ public class UserInterface {
 
     private void chooseEnvelope(){
         currentEntry = null;
-        System.out.print("Pick the envelope \n");
+        System.out.print("Pick the envelope\n");
         System.out.print(currentAccount);
         
         boolean exists = false;
@@ -228,7 +234,7 @@ public class UserInterface {
     }
 
     private void deleteTransaction() {
-        System.out.print("\nWhat transaction do you want to delete\n");
+        System.out.print("\nWhat transaction do you want to delete");
         System.out.print(currentAccount.printTransactions());
         String name = getQuery();
         if(name == null){return;}
@@ -250,10 +256,11 @@ public class UserInterface {
     }
 
     private void printHander() {
+        System.out.println("");
         for (Account account : budget.getAll()) {  
-            System.out.print(account.getName() + "\n");
+            System.out.print(account.getName()  + " $" + account.getValue() + "\n");
             for (Container<Entry> envelope : account.getAll()) {
-                System.out.print("\t" + envelope.getName() + "\n");
+                System.out.print("\t" + envelope.getName() + " $" +envelope.getValue()+ "\n");
                 for (Entry entry : envelope.getAll()) {
                     System.out.print("\t \t" + entry.toString()+"\n");
                 }
@@ -302,6 +309,7 @@ public class UserInterface {
         if(name == null){return;}
 
         Account account = new Account(name);
+        currentAccount = account;
         budget.addNew(account);
     }
 
@@ -312,6 +320,7 @@ public class UserInterface {
 
         Container<Entry> envelope = new Container<Entry>(name);
         currentAccount.addNew(envelope);
+        currentEnvelope = envelope;
         currentEnvelope = envelope;
     }
 
@@ -346,7 +355,7 @@ public class UserInterface {
     }
 
     private String getQuery(){
-        System.out.println();
+        System.out.print(": ");
         String response = scanner.nextLine();
         if(!response.isEmpty() && response.charAt(0) == '!'){
             SelectControls(response);
