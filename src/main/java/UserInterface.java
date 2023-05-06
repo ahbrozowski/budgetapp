@@ -3,10 +3,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-
+import javax.management.Query;
 
 
 public class UserInterface {
+    
     Scanner scanner = new Scanner(System.in);
    Budget budget;
     Account currentAccount;
@@ -18,7 +19,117 @@ public class UserInterface {
         this.budget = budget;
     }
 
+    private void SelectControls(String sentCommand){
+
+        String command = sentCommand.toLowerCase();
+        switch(command){
+            case "!change":
+                changeHandler();
+                break;
+            case "!create": 
+                createHandler();
+                break;
+            case "!delete": 
+                deleteHandler();
+                break;
+            case "!quit":
+                saveAndClose();
+                break;
+            case "!print":
+                printHander();
+                break;
+            case "!help":
+                printControls();
+                break;
+        }
+    }
+
+    private void createHandler() {
+        System.out.println("What would you like to Create? an Account, Envelope or Transaction?");
+        String response = getQuery();
+        if(response == null){return;}
+
+        switch(response.toLowerCase()){
+            case "account":
+                currentEntry = null;
+                currentEnvelope = null;
+                createAccount();
+                break;
+            case "envelope":
+                currentEntry = null;
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                createEnvelope();
+                break;
+            case "transaction":
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                createTransaction();
+                break;
+        }           
+    }
+
+    private void deleteHandler() {
+        System.out.println("What would you like to delete? an Account, Envelope or Transaction?");
+        String response = getQuery();
+        if(response == null){return;}
+
+        switch(response.toLowerCase()){
+            case "account":
+                currentEntry = null;
+                currentEnvelope = null;
+                deleteAccount();
+                break;
+            case "envelope":
+                currentEntry = null;
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                deleteEnvelope();
+                break;
+            case "transaction":
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                deleteTransaction();
+                break;
+        }          
+    }
+
+    private void changeHandler() {
+
+        System.out.println("What would you like to change? Your Account, Envelope, or Entry?");
+        String response = getQuery();
+        if(response == null){
+            return;
+        }
+        switch(response.toLowerCase()){
+            case "account":
+                chooseAccount();
+                break;
+            case "envelope":
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                chooseEnvelope();
+                break;
+            case "entry":
+                if(currentAccount == null){
+                    chooseAccount();
+                }
+                if(currentEnvelope == null){
+                    chooseEnvelope();
+                }
+                chooseEntry();
+                break;
+        }           
+    }
+
     private void chooseAccount(){
+        currentEnvelope = null;
+        currentEntry = null;
         System.out.print("Pick the Account \n");
         System.out.print(budget);
         
@@ -45,6 +156,7 @@ public class UserInterface {
 
 
     private void chooseEnvelope(){
+        currentEntry = null;
         System.out.print("Pick the envelope \n");
         System.out.print(currentAccount);
         
@@ -97,63 +209,39 @@ public class UserInterface {
     }
 
 
-    private void SelectControls(String sentCommand){
 
-        String command = sentCommand.toLowerCase();
-        switch(command){
-            case "!change":
-                changeHandler();
-                break;
-            case "!create": 
-                createHandler();
-                break;
-            case "!deleate": 
-                deleateHandler();
-                break;
-            case "!quit":
-                saveAndClose();
-                break;
-            case "!print":
-                printHander();
-                break;
-            case "!help":
-                printControls();
-                break;
-        }
+
+    private void deleteAccount() {
+        System.out.print("\nWhat account do you want to delete");
+        String name = getQuery();
+        if(name == null){return;}
+
+        budget.removeByName(name);
+        
     }
 
-    private void deleateHandler() {
-        System.out.println("What would you like to Deleate? an Account, Envelope or Transaction?");
-        String response = getQuery();
-        if(response == null){return;}
+    private void deleteEnvelope() {
+        System.out.print("\nWhat account do you want to delete");
+        String name = getQuery();
+        if(name == null){return;}
 
-        switch(response.toLowerCase()){
-            case "account":
-                currentEntry = null;
-                currentEnvelope = null;
-                createAccount();
-                break;
-            case "envelope":
-                currentEntry = null;
-                if(currentAccount == null){
-                    chooseAccount();
-                }
-                createEnvelope();
-                break;
-            case "transaction":
-                if(currentAccount == null){
-                    chooseAccount();
-                }
-                createTransaction();
-                break;
-        }          
+        currentAccount.removeByName(name);
+    }
+
+    private void deleteTransaction() {
+        System.out.print("\nWhat transaction do you want to delete\n");
+        System.out.print(currentAccount.printTransactions());
+        String name = getQuery();
+        if(name == null){return;}
+
+        currentAccount.removeTransactionByName(name);
     }
 
     private void printControls() {
         System.out.println("The avalible controls are \n" + 
         "  !change, lets you choose what Account, envelope or entry you are currently on\n"+
         "  !create, allows you to create an account, envelope, or transaction\n"+
-        "  !deleate, allows you to deleate an account, envelope, or transaction\n"+
+        "  !delete, allows you to delete an account, envelope, or transaction\n"+
         "  !print, prints the whole budget\n"+
         "  !quit, saves and quits the application\n"+
         "  !help, displays the avalible commands");
@@ -177,65 +265,9 @@ public class UserInterface {
 
     }
 
-    private void createHandler() {
-        System.out.println("What would you like to Create? an Account, Envelope or Transaction?");
-        String response = getQuery();
-        if(response == null){return;}
-
-        switch(response.toLowerCase()){
-            case "account":
-                currentEntry = null;
-                currentEnvelope = null;
-                createAccount();
-                break;
-            case "envelope":
-                currentEntry = null;
-                if(currentAccount == null){
-                    chooseAccount();
-                }
-                createEnvelope();
-                break;
-            case "transaction":
-                if(currentAccount == null){
-                    chooseAccount();
-                }
-                createTransaction();
-                break;
-        }           
-    }
-
-    private void changeHandler() {
-
-        System.out.println("What would you like to change? Your Account, Envelope, or Entry?");
-        String response = getQuery();
-        if(response == null){
-            return;
-        }
-        switch(response.toLowerCase()){
-            case "account":
-                currentEnvelope = null;
-                currentEntry = null;
-                chooseAccount();
     
-                break;
-            case "envelope":
-                currentEntry = null;
-                if(currentAccount == null){
-                    chooseAccount();
-                }
-                chooseEnvelope();
-                break;
-            case "entry":
-                if(currentAccount == null){
-                    chooseAccount();
-                }
-                if(currentEnvelope == null){
-                    chooseEnvelope();
-                }
-                chooseEntry();
-                break;
-        }           
-    }
+
+
 
     private void saveAndClose() {
         try {
